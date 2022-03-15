@@ -10,6 +10,7 @@ const sanitizer = require('./middleware/sanitization')
 
 app.use(bodyParser.json());
 app.get('/all',(req,res)=>{
+    console.log('get all');
     res.send('hello');
 })
 // app.post('/sign-in', validator.userSignIn, controller.userSignup);
