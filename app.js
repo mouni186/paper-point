@@ -9,7 +9,9 @@ const sanitizer = require('./middleware/sanitization')
 
 
 app.use(bodyParser.json());
-
+app.get('/all',(req,res)=>{
+    res.send('hello');
+})
 // app.post('/sign-in', validator.userSignIn, controller.userSignup);
 app.get('/all-repos', sanitizer.sanitizaAllRepo, validator.validatorAllRepo, controller.allRepo);
 
