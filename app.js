@@ -15,7 +15,7 @@ app.get('/all-repos', sanitizer.sanitizaAllRepo, validator.validatorAllRepo, con
 
 
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-    console.log(`listening on port ${port}...s`);
+// const port = process.env.PORT || 5000;
+app.listen(process.env.PORT, () => {
+    console.log(`listening on port ${process.env.PORT}...`);
 })
