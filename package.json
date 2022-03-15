@@ -1,0 +1,26 @@
+{
+  "name": "paper-point",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sachinabs/paper-point.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sachinabs/paper-point/issues"
+  },
+  "homepage": "https://github.com/sachinabs/paper-point#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1093.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "uuid": "^8.3.2"
+  }
+}
