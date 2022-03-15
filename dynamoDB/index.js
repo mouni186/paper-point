@@ -8,10 +8,18 @@ AWS.config.update({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
+const getAllRepo = async (req, res) => {
+    console.log('getAllRepo Db');
+    return true;
+}
+
+
+
 const signupDetail = async (user) => {
    
 }
 
 module.exports = {
+    getAllRepo,
     signupDetail,
 }
