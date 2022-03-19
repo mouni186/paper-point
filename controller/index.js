@@ -1,5 +1,3 @@
-
-
 const controllerRepo = require('./repo/controller.repo')
 
 
@@ -19,12 +17,17 @@ const allRepo = async(req, res) => {
 
 
 const userSignup = async(req, res) => {
-  
+    try {
+        const result = await controllerRepo.getSignupDetails(req, res);
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 
 }
 
 
 module.exports = {
     allRepo,
-    userSignup,  
+    userSignup,
 }

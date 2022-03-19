@@ -9,10 +9,11 @@ const sanitizer = require('./middleware/sanitization')
 
 
 app.use(bodyParser.json());
-
-// app.post('/sign-in', validator.userSignIn, controller.userSignup);
 app.get('/all-repos', sanitizer.sanitizaAllRepo, validator.validatorAllRepo, controller.allRepo);
-
+app.get('/user-detail', sanitizer.santizeUser);
+app.get('/get-all-post', sanitizer.getAllPost);
+// main route
+app.post('/user-signup', sanitizer.santizeUserSignup, validator.validateSignup, controller.userSignup);
 
 
 const port = process.env.PORT || 5000;
