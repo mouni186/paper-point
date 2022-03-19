@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // app.post('/sign-in', validator.userSignIn, controller.userSignup);
 app.get('/all-repos', sanitizer.sanitizaAllRepo, validator.validatorAllRepo, controller.allRepo);
-
+app.post('/user-login',sanitizer.sanitizationlogin,validator.validatorlogin);
 
 
 const port = process.env.PORT || 5000;

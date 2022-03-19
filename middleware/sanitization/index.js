@@ -15,7 +15,21 @@ const sanitizaAllRepo =  (req, res, next) => {
     }
    
 }
+const sanitizationlogin =  (req,res,next) =>{
+    try{
+        const result = sanitizationRepo.login(req.body);
+
+        if(result){
+            console.log('sanitization success');
+            next();
+        }
+    }
+    catch(err){
+        throw new Error(err);
+    }
+}
 
 module.exports = {
-    sanitizaAllRepo
+    sanitizaAllRepo,
+    sanitizationlogin
 }

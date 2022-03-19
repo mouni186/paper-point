@@ -10,6 +10,14 @@ const validatorAllRepo= (req, res, next) => {
     }
 }
 
+const validatorlogin = (req, res, next) =>{
+    try{
+        const result = validationRepo.login(req.body);
+        next();
+    }catch(err){
+        throw new Error(err);
+    }
+}
 module.exports = {
-    validatorAllRepo
+    validatorAllRepo,validatorlogin
 }

@@ -16,6 +16,16 @@ const allRepo = (data) => {
 
 }
 
+const login = (data) =>{
+  try {
+    sanitizationHelper.xssHelper(data);
+    return true;
+  }catch(err){
+    console.log(err);
+  }
+}
+
 module.exports = {
-  allRepo
+  allRepo,
+  login
 }
