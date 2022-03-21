@@ -1,6 +1,4 @@
 const joi = require('joi');
-// import { nanoid } from 'nanoid'
-// model.id = nanoid()
 
 const validateAllUserDetails = (data) => {
     const userDetails = {
@@ -19,7 +17,21 @@ const validateAllUserDetails = (data) => {
     if (result.error)
         throw new Error(result.error);
 }
+const validateAllPost = (data) => {
+    const postDetails = {
+        "taskname": data.taskname,
+        "description":data.description
+    }
+    const schema = joi.object({
+        taskname:joi.string().required(),
+        description:joi.string().required()
+    });
+    const result = schema.validate(postDetails);
+    if(result.error)
+    throw new Error(result.error);
+}
 
 module.exports = {
-    validateAllUserDetails
+    validateAllUserDetails,
+    validateAllPost
 }

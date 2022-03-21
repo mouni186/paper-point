@@ -10,7 +10,14 @@ const validateAllDetails = (data) => {
     console.log('validation successfull');
     return true;
 }
+const validatePost = (data) => {
+    const result = validationHelper.validateAllPost(data);
+    console.log('validation successfull');
+    return true;
+}
+
 module.exports = {
     allRepo,
-    validateAllDetails
+    validateAllDetails,
+    validatePost
 }

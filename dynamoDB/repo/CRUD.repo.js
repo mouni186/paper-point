@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const req = require('express/lib/request');
 require("dotenv").config();
 
 AWS.config.update({
@@ -8,7 +9,7 @@ AWS.config.update({
 });
 
 
-const createRecordInDynamodb = async(params) => {
+const createRecordInDynamodb = async (params) => {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     try {
         const result = await dynamodb.put(params).promise();
@@ -18,10 +19,20 @@ const createRecordInDynamodb = async(params) => {
         throw new Error(error);
     }
 }
-
+const getRecordInDynamodb = async (params) => {
+    const dynamodb = new AWS.DynamoDB.DocumentClient();
+    try {
+        const result = await dynamodb.get(params).promise();
+        return result;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 
 
 
 module.exports = {
-    createRecordInDynamodb
+    createRecordInDynamodb,
+    getRecordInDynamodb
+
 }

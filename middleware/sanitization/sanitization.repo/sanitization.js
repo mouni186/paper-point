@@ -39,10 +39,19 @@ const santizeUserDetails = (data) => {
         console.log(err);
     }
 }
+const santizePost = (data) => {
+    try {
+        sanitizationHelper.xssHelper(data);
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 module.exports = {
     allRepo,
     santizeUserDetail,
     santizeAllPost,
-    santizeUserDetails
+    santizeUserDetails,
+    santizePost
 }

@@ -15,8 +15,18 @@ const getSignupDetails = async(req, res) => {
         res.send(error);
     }
 }
+const newTaskDetails = async(req, res) => {
+    try {
+        const response = await dynamoDbController.taskDetails(req, res);
+        res.send(response);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
 
 module.exports = {
     getAllRepo,
-    getSignupDetails
+    getSignupDetails,
+    newTaskDetails
 }

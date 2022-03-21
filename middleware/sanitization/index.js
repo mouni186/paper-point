@@ -46,11 +46,25 @@ const santizeUserSignup = (req, res, next) => {
         throw new Error(err);
     }
 }
+const santizeNewPost = (req,res,next) => {
+    try {
+        const result = sanitizationRepo.santizePost(req.body);
+        console.log(result);
+        if (result) {
+            console.log("sanitization success");
+            next();
+        } 
+        
+    } catch (error) {
+       throw new Error(error);
+    }
+}
 
 
 module.exports = {
     sanitizaAllRepo,
     santizeUser,
     getAllPost,
-    santizeUserSignup
+    santizeUserSignup,
+    santizeNewPost
 }

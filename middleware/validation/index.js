@@ -17,8 +17,18 @@ const validateSignup = (req, res, next) => {
         throw new Error(err);
     }
 }
+const validateNewPost = (req, res, next) => {
+    try {
+        const result = validationRepo.validatePost(req.body);
+        next();
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 
 module.exports = {
     validatorAllRepo,
-    validateSignup
+    validateSignup,
+    validateNewPost
 }
