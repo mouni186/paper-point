@@ -4,9 +4,7 @@ const xssHelper = (data) => {
         const result = xss(data[val]);
         if (result != data[val])
             throw new Error("xss error")
-
     }
-
 }
 module.exports = {
     xssHelper
