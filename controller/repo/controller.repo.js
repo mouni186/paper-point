@@ -1,5 +1,5 @@
 const dynamoDbController = require('../../dynamoDB')
-const getAllRepo = async(req, res) => {
+const getAllRepo = async (req, res) => {
     try {
         await dynamoDbController.getAllRepo();
 
@@ -7,7 +7,7 @@ const getAllRepo = async(req, res) => {
         throw new Error(error)
     }
 }
-const getSignupDetails = async(req, res) => {
+const getSignupDetails = async (req, res) => {
     try {
         const response = await dynamoDbController.signupDetail(req, res);
         res.send(response);
@@ -15,7 +15,7 @@ const getSignupDetails = async(req, res) => {
         res.send(error);
     }
 }
-const newTaskDetails = async(req, res) => {
+const newTaskDetails = async (req, res) => {
     try {
         const response = await dynamoDbController.taskDetails(req, res);
         res.send(response);
@@ -23,10 +23,19 @@ const newTaskDetails = async(req, res) => {
         res.send(error);
     }
 }
+const moveToInprogressDetails = async (req, res) => {
+    try {
+        const response = await dynamoDbController.moveToInprogress(req, res);
+        res.send(response);
+    } catch (error) {
+        res.send(error)
+    }
+}
 
 
 module.exports = {
     getAllRepo,
     getSignupDetails,
-    newTaskDetails
+    newTaskDetails,
+    moveToInprogressDetails
 }
