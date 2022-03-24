@@ -15,9 +15,22 @@ const validatePost = (data) => {
     console.log('validation successfull');
     return true;
 }
+const validateMovetoInprogressState = (data) => {
+    const result = validationHelper.validateInprogressState(data);
+    console.log('validation successfull');
+    return true;
+}
+const validateMovetoCompleteState = (data) => {
+    const result = validationHelper.validateCompleteState(data);
+    console.log('validation successfull');
+    return true;
+}
+
 
 module.exports = {
     allRepo,
     validateAllDetails,
-    validatePost
+    validatePost,
+    validateMovetoInprogressState,
+    validateMovetoCompleteState
 }

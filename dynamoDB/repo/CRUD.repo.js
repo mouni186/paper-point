@@ -13,7 +13,7 @@ const createRecordInDynamodb = async (params) => {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     try {
         const result = await dynamodb.put(params).promise();
-        console.log(result);
+        return true;
 
     } catch (error) {
         throw new Error(error);

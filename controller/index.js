@@ -32,11 +32,21 @@ const moveToInprogress = async(req,res) => {
         res.status(500).send(error);  
     }
 }
+const moveToComplete = async(req,res) => {
+    try {
+        const result = await controllerRepo.moveToCompleteDetails(req, res);
+        res.status(200).send(result);
+
+    } catch (error) {
+        res.status(500).send(error);  
+    }
+}
 
 
 module.exports = {
     allRepo,
     userSignup,
     createNewTask,
-    moveToInprogress
+    moveToInprogress,
+    moveToComplete
 }

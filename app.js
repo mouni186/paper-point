@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const controller = require('./controller/index')
 const validator = require('./middleware/validation')
@@ -15,8 +16,9 @@ app.get('/get-all-post', sanitizer.getAllPost);
 // main route
 app.post('/user-signup', sanitizer.santizeUserSignup, validator.validateSignup, controller.userSignup);
 app.post('/create-new-task',sanitizer.santizeNewPost,validator.validateNewPost,controller.createNewTask);
-app.post('/move-to-inprogress',controller.moveToInprogress);
-
+app.post('/move-to-inprogress',sanitizer.santizeMovetoInprogress,validator.validateMovetoInprogress,controller.moveToInprogress);
+app.post('/move-to-complete',cors(),controller.moveToComplete)
+// ,sanitizer.santizeMovetoComplete,validator.validateMovetoComplete
 
 
 const port = process.env.PORT || 5000;

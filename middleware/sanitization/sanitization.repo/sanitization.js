@@ -47,11 +47,32 @@ const santizePost = (data) => {
         console.log(error);
     }
 }
+const santizeMovetoInprogressState = (data) => {
+    try {
+        sanitizationHelper.xssHelper(data);
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+}
+const santizeMovetoCompleteState = (data) => {
+    try {
+        sanitizationHelper.xssHelper(data);
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 
 module.exports = {
     allRepo,
     santizeUserDetail,
     santizeAllPost,
     santizeUserDetails,
-    santizePost
+    santizePost,
+    santizeMovetoInprogressState,
+    santizeMovetoCompleteState
 }

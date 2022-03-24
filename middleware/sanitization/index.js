@@ -59,6 +59,32 @@ const santizeNewPost = (req,res,next) => {
        throw new Error(error);
     }
 }
+const santizeMovetoInprogress = (req,res,next) => {
+    try {
+        const result = sanitizationRepo.santizeMovetoInprogressState(req.body);
+        console.log(result);
+        if (result) {
+            console.log("sanitization success");
+            next();
+        } 
+        
+    } catch (error) {
+       throw new Error(error);
+    }
+}
+const santizeMovetoComplete = (req,res,next) => {
+    try {
+        const result = sanitizationRepo.santizeMovetoCompleteState(req.body);
+        console.log(result);
+        if (result) {
+            console.log("sanitization success");
+            next();
+        } 
+        
+    } catch (error) {
+       throw new Error(error);
+    }
+}
 
 
 module.exports = {
@@ -66,5 +92,7 @@ module.exports = {
     santizeUser,
     getAllPost,
     santizeUserSignup,
-    santizeNewPost
+    santizeNewPost,
+    santizeMovetoInprogress,
+    santizeMovetoComplete
 }
