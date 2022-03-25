@@ -1,7 +1,7 @@
 const nodeMailer = require('nodemailer');
 require('dotenv').config();
 
-const sendEmail = async (user) => {
+const sendNotificationEmail = async (user,taskTitle,newComment) => {
     const transpoter = nodeMailer.createTransport({
         host: 'smtp.gmail.com',
         port: 587,
@@ -11,14 +11,16 @@ const sendEmail = async (user) => {
         },
     })
     
-await transpoter.sendMail({
+const trigger = async (target) => {await transpoter.sendMail({
     from:`"${process.env.NAME}" <${process.env.EMAIL}>` , // email also
-    to: user,
-    subject: "Task Created",
-    text: "Your task is created"
+    to: target,
+    subject: "Comment Notification",
+    html: `<b>${taskTitle}</b> : comment: ${newComment}`
 })
+}
+user.map(targetUser => trigger(targetUser) );
 }
 
 module.exports = {
-    sendEmail
+    sendNotificationEmail
 }

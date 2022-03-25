@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
 const CRUDOperationInDynamodb = require('./repo/CRUD.repo')
 const { sendEmail } = require('../utils/handleEmails/emailSender')
-
+const { sendNotificationEmail } = require('../utils/handlenotification/notificationhandler')
 
 
 const getAllRepo = async (req, res) => {
@@ -221,6 +221,61 @@ const moveToComplete = async (req, res) => {
     }
     return returnObject;
 }
+const addComments = async (req, res) => {
+    let returnObject;
+    const taskId = req.body.tasknanoid;
+    const comments = req.body.comments;
+    try {
+        const params = {
+            TableName: "task_details",
+            Key: {
+                tasknanoid: taskId
+            }
+        }
+
+        const result = await CRUDOperationInDynamodb.getRecordInDynamodb(params);
+
+        var appendNewComment = result.Item.comments;
+        appendNewComment.push(comments);
+        var listOfUsers = result.Item.towhom;
+        const taskTitle = result.Item.taskname;
+        if (result.Item) {
+            try {
+                const updatedParam = {
+                    TableName: "task_details",
+                    Key: {
+                        tasknanoid: taskId
+                    },
+                    ConditionExpression: "tasknanoid = :taskId",
+                    UpdateExpression: " set comments = :comment",
+                    ExpressionAttributeValues: {
+                        ":taskId": taskId,
+                        ":comment": appendNewComment
+                    },
+                    ReturnValues: "ALL_NEW"
+                }
+
+                await CRUDOperationInDynamodb.updateRecordInDynamodb(updatedParam);
+                const sendCommentEmail = sendNotificationEmail(listOfUsers, taskTitle, comments)
+
+                returnObject = {
+                    "message": "Comments updated in task"
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+    }
+    catch (error) {
+        console.log(error);
+        returnObject = {
+            "message": "Updation failed",
+            "id": null
+        }
+    }
+    return returnObject;
+}
 
 
 
@@ -229,7 +284,8 @@ module.exports = {
     signupDetail,
     taskDetails,
     moveToInprogress,
-    moveToComplete
+    moveToComplete,
+    addComments
 }
 
 

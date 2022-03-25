@@ -41,6 +41,16 @@ const moveToComplete = async(req,res) => {
         res.status(500).send(error);  
     }
 }
+const addComments = async(req,res) => {
+    try {
+        const result = await controllerRepo.addCommentstoTask(req, res);
+        res.status(200).send(result);
+
+    } catch (error) {
+        res.status(500).send(error);  
+    }
+}
+
 
 
 module.exports = {
@@ -48,5 +58,6 @@ module.exports = {
     userSignup,
     createNewTask,
     moveToInprogress,
-    moveToComplete
+    moveToComplete,
+    addComments
 }

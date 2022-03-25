@@ -19,6 +19,7 @@ app.post('/create-new-task',sanitizer.santizeNewPost,validator.validateNewPost,c
 app.post('/move-to-inprogress',sanitizer.santizeMovetoInprogress,validator.validateMovetoInprogress,controller.moveToInprogress);
 app.post('/move-to-complete',cors(),controller.moveToComplete)
 // ,sanitizer.santizeMovetoComplete,validator.validateMovetoComplete
+app.post('/add-comments',controller.addComments);
 
 
 const port = process.env.PORT || 5000;

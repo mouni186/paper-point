@@ -39,6 +39,14 @@ const moveToCompleteDetails = async (req, res) => {
         res.send(error)
     }
 }
+const addCommentstoTask = async (req, res) => {
+    try {
+        const response = await dynamoDbController.addComments(req, res);
+        res.send(response);
+    } catch (error) {
+        res.send(error)
+    }
+}
 
 
 module.exports = {
@@ -46,5 +54,6 @@ module.exports = {
     getSignupDetails,
     newTaskDetails,
     moveToInprogressDetails,
-    moveToCompleteDetails
+    moveToCompleteDetails,
+    addCommentstoTask
 }
