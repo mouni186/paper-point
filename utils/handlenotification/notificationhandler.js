@@ -6,13 +6,13 @@ const sendNotificationEmail = async (user,taskTitle,newComment) => {
         host: 'smtp.gmail.com',
         port: 587,
         auth: {
-            user: process.env.USER_ID, // make this email id in .env file
-            pass:process.env.PASS // password also
+            user: process.env.USER_ID, 
+            pass:process.env.PASS 
         },
     })
     
 const trigger = async (target) => {await transpoter.sendMail({
-    from:`"${process.env.NAME}" <${process.env.EMAIL}>` , // email also
+    from:`"${process.env.NAME}" <${process.env.EMAIL}>` , 
     to: target,
     subject: "Comment Notification",
     html: `<b>${taskTitle}</b> : comment: ${newComment}`
