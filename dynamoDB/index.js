@@ -10,11 +10,11 @@ const getAllRepo = async (req, res) => {
 }
 
 // signupDetail is an object which contain user details
+
 const signupDetail = async (req, res) => {
 
     let returnObject;
     const usernanoidgeneration = nanoid(15);
-
 
     const params = {
         TableName: "user_signup_details",
@@ -58,12 +58,13 @@ const signupDetail = async (req, res) => {
 
 // taskDetails is an object for creating task for the user
 
-
 const taskDetails = async (req, res) => {
+
     let returnObject;
     const taskNanoidGeneration = nanoid(8);
     const listOfUsers = req.body.towhom.split(",");
     const dateNow = new Date();
+
     try {
         const params = {
             TableName: "task_details",
@@ -81,6 +82,7 @@ const taskDetails = async (req, res) => {
             }
         };
         const createRecordInDynamodb = await CRUDOperationInDynamodb.createRecordInDynamodb(params);
+
         if (createRecordInDynamodb) {
             listOfUsers.map(targetUser => sendEmail(targetUser));
             returnObject = {
@@ -88,7 +90,8 @@ const taskDetails = async (req, res) => {
                 "id": taskNanoidGeneration
             }
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         returnObject = {
             "message": "Task failed",
@@ -118,6 +121,7 @@ const moveToInprogress = async (req, res) => {
 
         if (result.Item) {
             if (result.Item.taskStatus == 0) {
+
                 try {
 
                     const updatedParam = {
@@ -164,6 +168,7 @@ const moveToInprogress = async (req, res) => {
 // moving task to the next level (i,e) MoveToComplete
 
 const moveToComplete = async (req, res) => {
+
     let returnObject;
     const taskId = req.body.tasknanoid;
 
@@ -179,6 +184,7 @@ const moveToComplete = async (req, res) => {
 
         if (result.Item) {
             if (result.Item.taskStatus == 1) {
+
                 try {
 
                     const updatedParam = {
@@ -221,10 +227,16 @@ const moveToComplete = async (req, res) => {
     }
     return returnObject;
 }
+
+// Updating comments to a task
+
 const addComments = async (req, res) => {
+
     let returnObject;
     const taskId = req.body.tasknanoid;
     const comments = req.body.comments;
+    const commentNanoid = nanoid(8);
+
     try {
         const params = {
             TableName: "task_details",
@@ -236,10 +248,16 @@ const addComments = async (req, res) => {
         const result = await CRUDOperationInDynamodb.getRecordInDynamodb(params);
 
         var appendNewComment = result.Item.comments;
-        appendNewComment.push(comments);
+        const commentData = {
+            commentId: commentNanoid,
+            Comment: comments
+        }
+        appendNewComment.push(commentData);
         var listOfUsers = result.Item.towhom;
         const taskTitle = result.Item.taskname;
+
         if (result.Item) {
+
             try {
                 const updatedParam = {
                     TableName: "task_details",
@@ -277,6 +295,66 @@ const addComments = async (req, res) => {
     return returnObject;
 }
 
+const deleteComments = async (req, res) => {
+
+    const taskId = req.body.taskId;
+    const deleteCommentid = req.body.commentId;
+
+    try {
+        const params = {
+            TableName: "task_details",
+            Key: {
+                tasknanoid: taskId,
+            },
+        }
+        const result = await CRUDOperationInDynamodb.getRecordInDynamodb(params);
+
+        if (result.Item) {
+            const existingComments = result.Item.comments;
+            var deleteComment = existingComments.filter(comment => comment.commentId != deleteCommentid);
+
+            try {
+                const updatedParam = {
+                    TableName: "task_details",
+                    Key: {
+                        tasknanoid: taskId
+                    },
+                    ConditionExpression: "tasknanoid = :taskId",
+                    UpdateExpression: " set comments = :comment",
+                    ExpressionAttributeValues: {
+                        ":taskId": taskId,
+                        ":comment": deleteComment
+                    },
+                    ReturnValues: "ALL_NEW"
+                }
+
+                await CRUDOperationInDynamodb.updateRecordInDynamodb(updatedParam);
+
+                returnObject = {
+                    "message": "Comments deleted succcessfully"
+                }
+            }
+            catch (error) {
+                console.log(error);
+                returnObject = {
+                    "message": "Updation failed",
+                    "id": null
+                }
+
+            }
+        }
+
+    }
+    catch (error) {
+        console.log(error);
+        returnObject = {
+            "message": "Updation failed",
+            "id": null
+        }
+    }
+    return returnObject;
+}
+
 
 
 module.exports = {
@@ -285,7 +363,8 @@ module.exports = {
     taskDetails,
     moveToInprogress,
     moveToComplete,
-    addComments
+    addComments,
+    deleteComments
 }
 
 

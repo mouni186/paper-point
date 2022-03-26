@@ -9,57 +9,87 @@ const allRepo = (data) => {
 
     if (resust === userNameBox) {
         return true;
-    } else {
+    }
+    else {
         throw new Error('xss attack');
     }
 
 }
+
 const santizeUserDetail = (data) => {
+
     try {
         sanitizationHelper.xssHelper(data);
         return true;
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err);
     }
 
 }
+
 const santizeAllPost = (data) => {
+
     try {
         sanitizationHelper.xssHelper(data);
         return true;
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err);
     }
 }
+
 const santizeUserDetails = (data) => {
+
     try {
         sanitizationHelper.xssHelper(data);
         return true;
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err);
     }
 }
-const santizePost = (data) => {
+
+const santizeTask = (data) => {
+
     try {
         sanitizationHelper.xssHelper(data);
         return true;
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
     }
 }
+
 const santizeMovetoInprogressState = (data) => {
+
     try {
         sanitizationHelper.xssHelper(data);
         return true;
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
     }
 }
+
 const santizeMovetoCompleteState = (data) => {
+
     try {
         sanitizationHelper.xssHelper(data);
         return true;
-    } catch (error) {
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const santizeComments = (data) => {
+
+    try {
+        sanitizationHelper.xssHelper(data);
+        return true;
+    }
+    catch (error) {
         console.log(error);
     }
 }
@@ -72,7 +102,8 @@ module.exports = {
     santizeUserDetail,
     santizeAllPost,
     santizeUserDetails,
-    santizePost,
+    santizeTask,
     santizeMovetoInprogressState,
-    santizeMovetoCompleteState
+    santizeMovetoCompleteState,
+    santizeComments
 }
